@@ -67,4 +67,4 @@ def update_weather_chart(selected_seasons, selected_year):
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
