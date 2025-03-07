@@ -5,7 +5,7 @@ from dash import dcc, html
 from dash.dependencies import Input, Output
 
 # Load dataset
-day_df = pd.read_csv("day.csv")
+day_df = pd.read_csv("dashboard/day.csv")
 
 day_df['dteday'] = pd.to_datetime(day_df['dteday'])
 
