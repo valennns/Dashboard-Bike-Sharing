@@ -1,4 +1,4 @@
-#🚴‍♂️ Dashboard  Bikee Sharing: Jelajahi Data Penyewaan Sepeda dengan Visualisasi Menarik! 📊
+# 🚴‍♂️ Dashboard  Bikee Sharing: Jelajahi Data Penyewaan Sepeda dengan Visualisasi Menarik! 📊
 
 **🌟 Tentang Proyek Ini**
 
@@ -9,7 +9,7 @@ Selamat datang di Bike Sharing Dashboard! 🚀 Dengan dashboard ini, Anda dapat 
 
 ## Melalui berbagai visualisasi data, proyek ini memberikan insight berharga yang dapat membantu pengelola bisnis sepeda ataupun peneliti tren transportasi dalam mengambil keputusan berbasis data.
 
-##🎯 Fitur Utama
+## 🎯 Fitur Utama 
 
 **✅ Analisis Tren Penyewaan Sepeda**
 **📆 Perubahan Bulanan & Tahunan:** Lihat bagaimana jumlah penyewaan sepeda berubah dari waktu ke waktu.
@@ -17,30 +17,30 @@ Selamat datang di Bike Sharing Dashboard! 🚀 Dengan dashboard ini, Anda dapat 
 **📅 Musim & Hari Kerja vs Libur:** Bagaimana musim dan hari kerja mempengaruhi pola penyewaan?
 
 
-##✅ Dampak Cuaca terhadap Penyewaan
+## ✅ Dampak Cuaca terhadap Penyewaan
 
 🌡 Temperatur, Kelembapan, Kecepatan Angin: Apakah cuaca tertentu membuat orang lebih enggan menyewa sepeda?
 **🌧 Kondisi Cuaca:** Apakah hujan benar-benar mengurangi jumlah pengguna sepeda?
 
-##✅ Visualisasi Data yang Menarik
+## ✅ Visualisasi Data yang Menarik
 📊 Grafik Interaktif dengan Matplotlib & Seaborn
 🎨 Desain Dashboard Modern & Responsif menggunakan Streamlit
 
-##⚙️ Teknologi yang Digunakan
+## ⚙️ Teknologi yang Digunakan
 
 **🖥 Python** - Bahasa pemrograman utama untuk analisis data.
 **📊 Pandas** - Untuk manipulasi dan analisis data.
 **🎨 Matplotlib & Seaborn** - Untuk visualisasi data yang informatif.
 **🌐 Streamlit** - Untuk membangun dashboard interaktif.
 
-##📂 Dataset yang Digunakan
+## 📂 Dataset yang Digunakan
 
-#Dataset yang digunakan dalam proyek ini terdiri dari:
+# Dataset yang digunakan dalam proyek ini terdiri dari:
 
 data/day.csv - Data penyewaan sepeda per hari
 data/hour.csv - Data penyewaan sepeda per jam
 
-##🚀 Cara Menjalankan Proyek Ini
+## 🚀 Cara Menjalankan Proyek Ini
 
 1️⃣ Clone repositori ini ke komputer Anda
 
