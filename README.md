@@ -44,7 +44,7 @@ data/hour.csv - Data penyewaan sepeda per jam
 
 1️⃣ Clone repositori ini ke komputer Anda
 
-git clone <URL_REPOSITORI>
+git clone <https://github.com/valennns/Dashboard-Bike-Sharing>
 cd <nama_folder>
 
 2️⃣ Install dependensi yang dibutuhkan
@@ -60,7 +60,9 @@ streamlit run dashboard.py
 📊 Insight Berharga yang Bisa Didapat
 
 🔹 Identifikasi waktu-waktu sibuk penyewaan untuk mengoptimalkan ketersediaan sepeda.
+
 🔹 Analisis pengaruh cuaca untuk mengetahui kapan permintaan menurun.
+
 🔹 Perbedaan pola penggunaan antara hari kerja & akhir pekan untuk strategi bisnis yang lebih baik.
 
 📝 Lisensi & Hak Cipta
