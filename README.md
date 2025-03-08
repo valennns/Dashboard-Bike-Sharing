@@ -1,76 +1,29 @@
-import pandas as pd
-import plotly.express as px
-import dash
-from dash import dcc, html
-from dash.dependencies import Input, Output
+# Bike Sharing Data Analysis Dashboard
 
-# Load dataset
-day_df = pd.read_csv(r"C:\Users\USER\Documents\Coding Camp DBS\submission 1\data\day.csv")
+📊 **Deskripsi**  
+Dashboard ini adalah alat analisis untuk data penyewaan sepeda. Menggunakan Streamlit, Matplotlib, dan Seaborn, dashboard ini memberikan wawasan tentang pola penyewaan sepeda berdasarkan waktu dan pengaruh cuaca terhadap jumlah penyewaan.
 
-# Konversi kolom 'dteday' ke datetime
-day_df['dteday'] = pd.to_datetime(day_df['dteday'])
+## Fitur Utama
+- **Tren Penyewaan**: Visualisasi jumlah penyewaan sepeda per jam dan per hari.
+- **Pengaruh Cuaca**: Analisis bagaimana faktor cuaca seperti suhu, kelembapan, dan kecepatan angin mempengaruhi jumlah penyewaan.
+- **Interaktivitas**: Pengguna dapat memilih rentang tanggal untuk analisis yang lebih spesifik.
 
-# Inisialisasi aplikasi Dash
-app = dash.Dash(__name__)
+## Teknologi yang Digunakan
+- **Python**: Bahasa pemrograman yang digunakan.
+- **Streamlit**: Framework untuk membuat aplikasi web interaktif.
+- **Matplotlib**: Library untuk visualisasi data.
+- **Seaborn**: Library untuk visualisasi statistik yang lebih menarik.
 
-# Tata letak aplikasi
-app.layout = html.Div([
-    html.H1("Dashboard Pengguna Sepeda"),
+## Cara Menjalankan
+1. **Clone Repositori**:
+   ```bash
+   git clone https://github.com/username/repository.git
+   cd repository
 
-    dcc.Graph(id='trend-chart'),
+#Instal Dependensi: Pastikan Anda memiliki Python dan pip terinstal. Kemudian, instal dependensi yang diperlukan:
+pip install streamlit pandas matplotlib seaborn
 
-    dcc.Dropdown(
-        id='season-filter',
-        options=[
-            {'label': 'Spring', 'value': 1},
-            {'label': 'Summer', 'value': 2},
-            {'label': 'Fall', 'value': 3},
-            {'label': 'Winter', 'value': 4}
-        ],
-        multi=True,
-        placeholder='Pilih musim...'
-    ),
+# Jalankan Aplikasi: Setelah semua dependensi terinstal, jalankan aplikasi dengan perintah:
+streamlit run app.py
 
-    dcc.Graph(id='weather-chart'),
-
-    dcc.Slider(
-        id='year-slider',
-        min=day_df['dteday'].dt.year.min(),
-        max=day_df['dteday'].dt.year.max(),
-        value=day_df['dteday'].dt.year.min(),
-        marks={str(year): str(year) for year in day_df['dteday'].dt.year.unique()},
-        step=None
-    )
-])
-
-# Callback untuk grafik tren
-@app.callback(
-    Output('trend-chart', 'figure'),
-    [Input('season-filter', 'value'),
-     Input('year-slider', 'value')]
-)
-def update_trend_chart(selected_seasons, selected_year):
-    df_filtered = day_df[day_df['dteday'].dt.year == selected_year]
-    if selected_seasons:
-        df_filtered = df_filtered[df_filtered['season'].isin(selected_seasons)]
-
-    fig = px.line(df_filtered, x='dteday', y='cnt', title='Tren Pengguna Sepeda', labels={'cnt': 'Jumlah Pengguna'})
-    return fig
-
-# Callback untuk grafik cuaca
-@app.callback(
-    Output('weather-chart', 'figure'),
-    [Input('season-filter', 'value'),
-     Input('year-slider', 'value')]
-)
-def update_weather_chart(selected_seasons, selected_year):
-    df_filtered = day_df[day_df['dteday'].dt.year == selected_year]
-    if selected_seasons:
-        df_filtered = df_filtered[df_filtered['season'].isin(selected_seasons)]
-
-    fig = px.box(df_filtered, x='weathersit', y='cnt', title='Distribusi Pengguna Sepeda berdasarkan Cuaca', labels={'cnt': 'Jumlah Pengguna', 'weathersit': 'Kondisi Cuaca'})
-    return fig
-
-# Jalankan aplikasi jika file dijalankan secara langsung
-if __name__ == '__main__':
-    app.run_server(debug=True)
+#Akses Dashboard: Buka browser dan akses http://localhost:8501 untuk melihat dashboard.
