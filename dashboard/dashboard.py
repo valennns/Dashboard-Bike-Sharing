@@ -35,7 +35,7 @@ sns.barplot(data=daily_demand, x='weekday', y='cnt', palette='Blues')
 ax.set_xlabel("Hari")
 ax.set_ylabel("Jumlah Penyewaan")
 ax.set_title("Jumlah Penyewaan Sepeda Harian")
-ax.plt.xticks(rotation=45)
+ax.xticks(rotation=45)
 ax.grid(axis='y')
 st.pyplot(fig)
 
