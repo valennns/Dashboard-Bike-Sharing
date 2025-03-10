@@ -80,7 +80,7 @@ sns.barplot(data=weather_sit_demand, x='weathersit', y='cnt', palette='Blues')
 ax.set_title("Jumlah Penyewaan berdasarkan Situasi Cuaca")
 plt.xticks([0, 1, 2, 3], ['Clear', 'Mist', 'Light Rain', 'Heavy Rain'])
 ax.set_xlabel("Situasi Cuaca (1=Clear, 2=Mist, 3=Light Rain, 4=Heavy Rain)")
-ax.set_ylabel("Jumlah Penyewaan")
+plt.ylabel("Jumlah Penyewaan")
 plt.grid(axis='y')
 st.pyplot(fig)
 
