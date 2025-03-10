@@ -19,11 +19,12 @@ st.markdown("Analisis tren penyewaan sepeda berdasarkan waktu dan faktor lingkun
 st.subheader("📊 Tren Penyewaan Sepeda per Jam")
 
 hourly_rentals = hour_df.groupby('hr')['cnt'].sum().reset_index()
-fig, ax = plt.subplots(figsize=(12, 6))
+fig, ax = plt.subplots(figsize=(10, 6))
 sns.lineplot(data=hourly_rentals, x='hr', y='cnt', marker='o', color='#29B5DA')
 ax.set_xlabel("Jam")
 ax.set_ylabel("Jumlah Penyewaan")
 ax.set_title("Jumlah Penyewaan Sepeda per Jam")
+ax.xticks(rotation=45)
 st.pyplot(fig)
 
 st.subheader("📅 Jumlah Penyewaan Sepeda Harian")
@@ -34,6 +35,8 @@ sns.barplot(data=daily_demand, x='weekday', y='cnt', palette='Blues')
 ax.set_xlabel("Hari")
 ax.set_ylabel("Jumlah Penyewaan")
 ax.set_title("Jumlah Penyewaan Sepeda Harian")
+ax.plt.xticks(rotation=45)
+ax.grid(axis='y')
 st.pyplot(fig)
 
 st.subheader("📆 Jumlah Penyewaan Sepeda per Bulan")
