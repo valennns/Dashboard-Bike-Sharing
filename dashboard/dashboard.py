@@ -20,7 +20,7 @@ st.subheader("📊 Tren Penyewaan Sepeda per Jam")
 
 hourly_rentals = hour_df.groupby('hr')['cnt'].sum().reset_index()
 fig, ax = plt.subplots(figsize=(10, 6))
-sns.lineplot(data=hourly_rentals, x='hr', y='cnt', marker='o', color='#29B5DA')
+sns.lineplot(data=hourly_rentals, x='hr', y='cnt', color='#29B5DA')
 ax.set_xlabel("Jam")
 ax.set_ylabel("Jumlah Penyewaan")
 ax.set_title("Jumlah Penyewaan Sepeda per Jam")
