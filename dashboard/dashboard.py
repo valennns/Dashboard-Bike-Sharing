@@ -16,7 +16,6 @@ st.title("🚴‍♂️ Bike Sharing Dashboard")
 st.markdown("Analisis tren penyewaan sepeda berdasarkan waktu dan faktor lingkungan.")
 
 # Pertanyaan 1: Kapan saja penyewaan sepeda sangat ramai atau sepi di luar perkiraan?
-# Visualisasi penggunaan sepeda per jam
 st.subheader("📊 Tren Penyewaan Sepeda per Jam")
 
 time_df = hour_df.groupby('hr').agg({'cnt': 'mean'}).reset_index()
@@ -48,5 +47,38 @@ ax.set_title("Pengaruh Kondisi Cuaca terhadap Penyewaan Sepeda")
 st.pyplot(fig)
 
 st.markdown("**Insight:** Penyewaan sepeda lebih rendah saat hujan atau cuaca ekstrem.")
+
+# Visualisasi pengaruh suhu terhadap penyewaan
+st.subheader("🌡️ Pengaruh Suhu terhadap Penyewaan Sepeda")
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.scatterplot(x=day_df['temp'], y=day_df['cnt'], alpha=0.6, color='#FF5733')
+ax.set_xlabel("Temperatur (Normalized)")
+ax.set_ylabel("Total Penyewaan")
+ax.set_title("Hubungan antara Temperatur dan Penyewaan Sepeda")
+st.pyplot(fig)
+
+st.markdown("**Insight:** Penyewaan meningkat pada suhu sedang, tetapi menurun pada suhu ekstrem.")
+
+# Visualisasi pengaruh kelembapan terhadap penyewaan
+st.subheader("💧 Pengaruh Kelembapan terhadap Penyewaan Sepeda")
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.scatterplot(x=day_df['hum'], y=day_df['cnt'], alpha=0.6, color='#33A1FF')
+ax.set_xlabel("Kelembapan (Normalized)")
+ax.set_ylabel("Total Penyewaan")
+ax.set_title("Hubungan antara Kelembapan dan Penyewaan Sepeda")
+st.pyplot(fig)
+
+st.markdown("**Insight:** Penyewaan cenderung menurun pada kelembapan yang sangat tinggi.")
+
+# Visualisasi pengaruh kecepatan angin terhadap penyewaan
+st.subheader("💨 Pengaruh Kecepatan Angin terhadap Penyewaan Sepeda")
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.scatterplot(x=day_df['windspeed'], y=day_df['cnt'], alpha=0.6, color='#2ECC71')
+ax.set_xlabel("Kecepatan Angin (Normalized)")
+ax.set_ylabel("Total Penyewaan")
+ax.set_title("Hubungan antara Kecepatan Angin dan Penyewaan Sepeda")
+st.pyplot(fig)
+
+st.markdown("**Insight:** Kecepatan angin tidak terlalu mempengaruhi jumlah penyewaan secara signifikan.")
 
 st.caption("© 2025 - Bike Sharing Analysis Dashboard")
