@@ -74,6 +74,7 @@ ax.set_title("Korelasi Faktor Cuaca dan Penyewaan Sepeda")
 st.pyplot(fig)
 
 st.subheader("🌦️ Situasi Cuaca vs Permintaan")
+weather_sit_demand = day_df.groupby('weathersit')['cnt'].sum().reset_index()
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(data=weather_sit_demand, x='weathersit', y='cnt', palette='Blues')
 ax.set_title("Jumlah Penyewaan berdasarkan Situasi Cuaca")
