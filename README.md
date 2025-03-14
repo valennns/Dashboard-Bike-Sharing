@@ -53,7 +53,7 @@ pip install pandas matplotlib seaborn streamlit
 
 3️⃣ Jalankan aplikasi Streamlit
 
-streamlit run dashboard.py
+streamlit run dashboard/dashboard.py
 
 4️⃣ Buka browser Anda dan nikmati visualisasi datanya! 🌐
 
