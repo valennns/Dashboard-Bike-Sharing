@@ -4,7 +4,7 @@ import seaborn as sns
 import streamlit as st
 
 # Load data
-df = pd.read_csv("C:\submission 1\data\day.csv")
+df = pd.read_csv(r"C:\submission 1\data\day.csv")
 df['dteday'] = pd.to_datetime(df['dteday'])
 
 # Konfigurasi dashboard
@@ -32,7 +32,7 @@ st.subheader("🌤️ Pengaruh Musim terhadap Penyewaan Sepeda")
 df_season = df.groupby("season")["cnt"].mean().reset_index()
 df_season['season'] = df_season['season'].map({1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'})
 fig, ax = plt.subplots(figsize=(8, 5))
-sns.barplot(x='season', y='cnt', data=df_season, palette='coolwarm', ax=ax)
+sns.barplot(x='season', y='cnt', hue='season', data=df_season, palette='coolwarm', legend=False, ax=ax)
 ax.set_title("Rata-rata Penyewaan Sepeda per Musim")
 st.pyplot(fig)
 
@@ -41,7 +41,7 @@ st.subheader("🌦️ Pengaruh Cuaca terhadap Penyewaan Sepeda")
 df_weather = df.groupby("weathersit")["cnt"].mean().reset_index()
 df_weather['weathersit'] = df_weather['weathersit'].map({1: 'Cerah', 2: 'Mendung', 3: 'Hujan/Salju Ringan', 4: 'Cuaca Ekstrem'})
 fig, ax = plt.subplots(figsize=(8, 5))
-sns.barplot(x='weathersit', y='cnt', data=df_weather, palette='viridis', ax=ax)
+sns.barplot(x='weathersit', y='cnt', hue='weathersit', data=df_weather, palette='viridis', legend=False, ax=ax)
 ax.set_title("Rata-rata Penyewaan Sepeda Berdasarkan Cuaca")
 st.pyplot(fig)
 
