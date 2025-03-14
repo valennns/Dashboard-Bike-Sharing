@@ -3,76 +3,53 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-# Load dataset
-df = pd.read_csv(r"C:\submission 1\data\day.csv")
+# Load data
+df = pd.read_csv("C:\submission 1\data\day.csv")
 df['dteday'] = pd.to_datetime(df['dteday'])
 
-# Mapping season names
-df['season'] = df['season'].map({1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'})
+# Konfigurasi dashboard
+st.set_page_config(page_title="Dashboard Penyewaan Sepeda", layout="wide")
 
-# Mapping weather conditions
-df['weathersit'] = df['weathersit'].map({
-    1: 'Clear/Partly Cloudy',
-    2: 'Mist/Cloudy',
-    3: 'Light Rain/Snow',
-    4: 'Heavy Rain/Snow'
-})
+# Header utama
+st.title("📊 Dashboard Analisis Penyewaan Sepeda")
 
-# Dashboard Title
-st.title("Bike Sharing Analysis Dashboard 🚴‍♂️")
+# Sidebar untuk filter
+date_range = st.sidebar.date_input("Pilih Rentang Tanggal", [df['dteday'].min(), df['dteday'].max()])
+df_filtered = df[(df['dteday'] >= pd.to_datetime(date_range[0])) & (df['dteday'] <= pd.to_datetime(date_range[1]))]
 
-# Sidebar filters
-st.sidebar.header("Filter Data")
-selected_season = st.sidebar.multiselect("Select Season", df['season'].unique(), default=df['season'].unique())
-selected_weather = st.sidebar.multiselect("Select Weather Condition", df['weathersit'].unique(), default=df['weathersit'].unique())
-
-# Filter data
-df_filtered = df[(df['season'].isin(selected_season)) & (df['weathersit'].isin(selected_weather))]
-
-# Trend Analysis
-st.subheader("Daily Rental Trends")
+# Tren Penyewaan Sepeda
+st.subheader("📅 Tren Penyewaan Sepeda Harian")
 fig, ax = plt.subplots(figsize=(12, 5))
-sns.lineplot(data=df_filtered, x='dteday', y='cnt', ax=ax, color='#007BFF')
-ax.set_xlabel("Date")
-ax.set_ylabel("Total Rentals")
+ax.plot(df_filtered['dteday'], df_filtered['cnt'], marker='o', linestyle='-', color='blue')
+ax.set_xlabel("Tanggal")
+ax.set_ylabel("Jumlah Penyewaan")
+ax.set_title("Tren Penyewaan Sepeda Harian")
+ax.grid()
 st.pyplot(fig)
 
-# Impact of Weather
-st.subheader("Weather Impact on Bike Rentals")
+# Analisis Musiman
+st.subheader("🌤️ Pengaruh Musim terhadap Penyewaan Sepeda")
+df_season = df.groupby("season")["cnt"].mean().reset_index()
+df_season['season'] = df_season['season'].map({1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'})
 fig, ax = plt.subplots(figsize=(8, 5))
-sns.barplot(data=df_filtered, x='weathersit', y='cnt', palette='coolwarm', ax=ax)
-ax.set_xlabel("Weather Condition")
-ax.set_ylabel("Average Rentals")
+sns.barplot(x='season', y='cnt', data=df_season, palette='coolwarm', ax=ax)
+ax.set_title("Rata-rata Penyewaan Sepeda per Musim")
 st.pyplot(fig)
 
-# Impact of Temperature
-st.subheader("Effect of Temperature on Rentals")
+# Analisis Cuaca
+st.subheader("🌦️ Pengaruh Cuaca terhadap Penyewaan Sepeda")
+df_weather = df.groupby("weathersit")["cnt"].mean().reset_index()
+df_weather['weathersit'] = df_weather['weathersit'].map({1: 'Cerah', 2: 'Mendung', 3: 'Hujan/Salju Ringan', 4: 'Cuaca Ekstrem'})
 fig, ax = plt.subplots(figsize=(8, 5))
-sns.scatterplot(data=df_filtered, x='temp', y='cnt', color='#FF5733', alpha=0.7)
-ax.set_xlabel("Temperature (Normalized)")
-ax.set_ylabel("Total Rentals")
+sns.barplot(x='weathersit', y='cnt', data=df_weather, palette='viridis', ax=ax)
+ax.set_title("Rata-rata Penyewaan Sepeda Berdasarkan Cuaca")
 st.pyplot(fig)
 
-# Impact of Humidity
-st.subheader("Effect of Humidity on Rentals")
+# Korelasi Faktor Cuaca dengan Penyewaan
+st.subheader("📈 Korelasi Faktor Cuaca terhadap Penyewaan Sepeda")
 fig, ax = plt.subplots(figsize=(8, 5))
-sns.scatterplot(data=df_filtered, x='hum', y='cnt', color='#1F77B4', alpha=0.7)
-ax.set_xlabel("Humidity (Normalized)")
-ax.set_ylabel("Total Rentals")
+sns.heatmap(df[['temp', 'hum', 'windspeed', 'cnt']].corr(), annot=True, cmap='coolwarm', ax=ax)
+ax.set_title("Korelasi Faktor Cuaca terhadap Penyewaan Sepeda")
 st.pyplot(fig)
 
-# Impact of Wind Speed
-st.subheader("Effect of Wind Speed on Rentals")
-fig, ax = plt.subplots(figsize=(8, 5))
-sns.scatterplot(data=df_filtered, x='windspeed', y='cnt', color='#2CA02C', alpha=0.7)
-ax.set_xlabel("Wind Speed (Normalized)")
-ax.set_ylabel("Total Rentals")
-st.pyplot(fig)
-
-# Summary Insights
-st.markdown("## Key Insights:")
-st.markdown("- Bike rentals peak during warmer months and drop in winter.")
-st.markdown("- Clear weather increases rentals, while heavy rain/snow reduces demand.")
-st.markdown("- Rentals correlate positively with temperature up to a certain threshold.")
-st.markdown("- Higher humidity levels may slightly reduce rentals.")
-st.markdown("- Wind speed does not have a strong effect on rentals.")
+st.markdown("**Sumber Data:** Dataset Penyewaan Sepeda")
