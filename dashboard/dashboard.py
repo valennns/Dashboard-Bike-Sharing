@@ -8,12 +8,11 @@ PRIMARY_COLOR = "#29B5DA"
 SECONDARY_COLOR = "#007BFF"
 
 # Load dataset
-day_df = pd.read_csv(r"C:\submission 1\data\day.csv")
 try:
     day_df = pd.read_csv(r"C:\submission 1\data\day.csv")
     day_df['dteday'] = pd.to_datetime(day_df['dteday'])
 except FileNotFoundError:
-    st.error(f"File {r"C:\submission 1\data\day.csv"} tidak ditemukan. Pastikan file sudah diunggah dengan benar.")
+    st.error("File tidak ditemukan. Pastikan file sudah diunggah dengan benar.")
     st.stop()
 
 # Konfigurasi Streamlit
@@ -64,8 +63,8 @@ with st.expander("📈 Korelasi Faktor Cuaca terhadap Penyewaan Sepeda"):
 with st.expander("👥 Pengaruh Cuaca terhadap Jenis Pengguna"):
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
     for i, feature in enumerate(['temp', 'hum', 'windspeed']):
-        sns.scatterplot(data=day_df, x=feature, y='casual', ax=axes[i], label='Casual Users', color='#FF5733')
-        sns.scatterplot(data=day_df, x=feature, y='registered', ax=axes[i], label='Registered Users', color=PRIMARY_COLOR)
+        sns.scatterplot(data=day_df, x=feature, y='casual', ax=axes[i], label='Pengguna Kasual', color='#FF5733')
+        sns.scatterplot(data=day_df, x=feature, y='registered', ax=axes[i], label='Pengguna Terdaftar', color=PRIMARY_COLOR)
         axes[i].set_title(f"Penyewaan vs {feature} berdasarkan Jenis Pengguna")
         axes[i].set_xlabel(feature)
         axes[i].set_ylabel("Jumlah Penyewaan")
