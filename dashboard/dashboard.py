@@ -9,7 +9,7 @@ SECONDARY_COLOR = "#007BFF"
 
 # Load dataset
 try:
-    day_df = pd.read_csv("data\day.csv")
+    day_df = pd.read_csv("data/day.csv")
     day_df['dteday'] = pd.to_datetime(day_df['dteday'])
 except FileNotFoundError:
     st.error("File tidak ditemukan. Pastikan file sudah diunggah dengan benar.")
