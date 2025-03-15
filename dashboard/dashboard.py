@@ -57,26 +57,45 @@ with st.expander("📆 Pola Permintaan Bulanan"):
     ax.grid()
     st.pyplot(fig)
 
-# Matriks Korelasi Faktor Cuaca
-with st.expander("📈 Korelasi Faktor Cuaca dengan Penyewaan Sepeda"):
-    fig, ax = plt.subplots(figsize=(8, 6))
-    sns.heatmap(hour_df[['temp', 'hum', 'windspeed', 'weathersit', 'cnt', 'casual', 'registered']].corr(), annot=True, cmap='coolwarm', ax=ax)
+# Heatmap Korelasi
+with st.expander("📊 Korelasi Faktor Cuaca dan Penyewaan"):
+    correlation_matrix = hour_df[['temp', 'hum', 'windspeed', 'weathersit', 'cnt', 'casual', 'registered']].corr()
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', ax=ax)
     ax.set_title("Correlation Matrix of Weather Features and Rental Counts")
     st.pyplot(fig)
 
-# Perbandingan Penyewaan Hari Libur vs Non-Libur dan Hari Kerja vs Non-Kerja
-with st.expander("🏖️ Perbandingan Penyewaan Holiday vs Non-Holiday & Working Day vs Non-Working Day"):
-    fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-    sns.barplot(x=hour_df['holiday'].map({0: 'Non-Holiday', 1: 'Holiday'}), y=hour_df['cnt'], ax=axes[0])
-    axes[0].set_title("Perkiraan Jumlah Penyewaan Holiday vs Non-Holiday")
-    axes[0].set_xlabel("Holiday (1=Holiday, 0=Non-Holiday)")
-    axes[0].set_ylabel("Jumlah Penyewaan")
-    
-    sns.barplot(x=hour_df['workingday'].map({0: 'Non-Working Day', 1: 'Working Day'}), y=hour_df['cnt'], ax=axes[1])
-    axes[1].set_title("Perkiraan Jumlah Penyewaan Working Day vs Non-Working Day")
-    axes[1].set_xlabel("Working Day (1=Working Day, 0=Non-Working Day)")
-    axes[1].set_ylabel("Jumlah Penyewaan")
-    
+# Perbandingan Penyewaan Holiday vs Non-Holiday
+with st.expander("🏖️ Penyewaan pada Hari Libur vs Non-Libur"):
+    holiday_rentals = hour_df.groupby('holiday')['cnt'].sum().reset_index()
+    holiday_rentals['holiday'] = holiday_rentals['holiday'].map({0: 'Non-Holiday', 1: 'Holiday'})
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.barplot(data=holiday_rentals, x='holiday', y='cnt', ax=ax)
+    ax.set_title("Perkiraan Jumlah Penyewaan Holiday vs Non-Holiday")
+    ax.set_xlabel("Holiday (1=Holiday, 0=Non-Holiday)")
+    ax.set_ylabel("Jumlah Penyewaan")
+    st.pyplot(fig)
+
+# Perbandingan Penyewaan Working Day vs Non-Working Day
+with st.expander("📅 Penyewaan pada Hari Kerja vs Hari Libur"):
+    workingday_rentals = hour_df.groupby('workingday')['cnt'].sum().reset_index()
+    workingday_rentals['workingday'] = workingday_rentals['workingday'].map({0: 'Non-Working Day', 1: 'Working Day'})
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.barplot(data=workingday_rentals, x='workingday', y='cnt', ax=ax)
+    ax.set_title("Perkiraan Jumlah Penyewaan Working Day vs Non-Working Day")
+    ax.set_xlabel("Working Day (1=Working Day, 0=Non-Working Day)")
+    ax.set_ylabel("Jumlah Penyewaan")
+    st.pyplot(fig)
+
+# Penyewaan Berdasarkan Situasi Cuaca
+with st.expander("🌤️ Penyewaan Berdasarkan Situasi Cuaca"):
+    weather_rentals = hour_df.groupby('weathersit')['cnt'].sum().reset_index()
+    weather_rentals['weathersit'] = weather_rentals['weathersit'].map({1: 'Clear', 2: 'Mist', 3: 'Light Rain', 4: 'Heavy Rain'})
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(data=weather_rentals, x='weathersit', y='cnt', ax=ax)
+    ax.set_title("Jumlah Penyewaan berdasarkan Situasi Cuaca")
+    ax.set_xlabel("Situasi Cuaca (1=Clear, 2=Mist, 3=Light Rain, 4=Heavy Rain)")
+    ax.set_ylabel("Jumlah Penyewaan")
     st.pyplot(fig)
 
 st.caption("© 2025 - Bike Sharing Analysis Dashboard")
