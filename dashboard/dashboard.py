@@ -57,14 +57,6 @@ with st.expander("📆 Pola Permintaan Bulanan"):
     ax.grid()
     st.pyplot(fig)
 
-# Heatmap Korelasi
-with st.expander("📊 Korelasi Faktor Cuaca dan Penyewaan"):
-    correlation_matrix = hour_df[['temp', 'hum', 'windspeed', 'weathersit', 'cnt', 'casual', 'registered']].corr()
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', ax=ax)
-    ax.set_title("Correlation Matrix of Weather Features and Rental Counts")
-    st.pyplot(fig)
-
 # Perbandingan Penyewaan Holiday vs Non-Holiday
 with st.expander("🏖️ Penyewaan pada Hari Libur vs Non-Libur"):
     holiday_rentals = hour_df.groupby('holiday')['cnt'].sum().reset_index()
@@ -85,6 +77,14 @@ with st.expander("📅 Penyewaan pada Hari Kerja vs Hari Libur"):
     ax.set_title("Perkiraan Jumlah Penyewaan Working Day vs Non-Working Day")
     ax.set_xlabel("Working Day (1=Working Day, 0=Non-Working Day)")
     ax.set_ylabel("Jumlah Penyewaan")
+    st.pyplot(fig)
+
+# Heatmap Korelasi
+with st.expander("📊 Korelasi Faktor Cuaca dan Penyewaan"):
+    correlation_matrix = hour_df[['temp', 'hum', 'windspeed', 'weathersit', 'cnt', 'casual', 'registered']].corr()
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', ax=ax)
+    ax.set_title("Correlation Matrix of Weather Features and Rental Counts")
     st.pyplot(fig)
 
 # Penyewaan Berdasarkan Situasi Cuaca
