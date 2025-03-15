@@ -28,7 +28,7 @@ hour_df = hour_df[(hour_df['dteday'] >= pd.to_datetime(date_range[0])) & (hour_d
 with st.expander("⏰ Jumlah Penyewaan Sepeda per Jam"):
     hourly_rentals = hour_df.groupby('hr')['cnt'].sum().reset_index()
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.lineplot(data=hourly_rentals, x='hr', y='cnt', marker='o', color=PRIMARY_COLOR)
+    sns.lineplot(data=hourly_rentals, x='hr', y='cnt', color=PRIMARY_COLOR)
     ax.set_title("Jumlah Penyewaan Sepeda per Jam")
     ax.set_xlabel("Jam")
     ax.set_ylabel("Jumlah Penyewaan")
@@ -50,7 +50,7 @@ with st.expander("📅 Pola Permintaan Harian"):
 with st.expander("📆 Pola Permintaan Bulanan"):
     monthly_demand = hour_df.groupby('mnth')['cnt'].sum().reset_index()
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(data=monthly_demand, x='mnth', y='cnt', marker='o', color=SECONDARY_COLOR)
+    sns.lineplot(data=monthly_demand, x='mnth', y='cnt', color=SECONDARY_COLOR)
     ax.set_title("Jumlah Penyewaan Sepeda per Bulan")
     ax.set_xlabel("Bulan")
     ax.set_ylabel("Jumlah Penyewaan")
